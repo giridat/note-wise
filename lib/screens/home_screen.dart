@@ -1,14 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:note_project/screens/note_editor.dart';
+import 'package:note_project/screens/note_create.dart';
 import 'package:note_project/screens/note_reader.dart';
+import 'package:note_project/screens/settings_screen.dart';
 import 'popupAlert.dart';
-import 'package:note_project/style/app_style.dart';
+import 'package:note_project/style/app_style_dark.dart';
 import 'package:note_project/widgets/note_card.dart';
 
-
-import '../style/app_style.dart';
+import '../style/app_style_dark.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -21,13 +21,56 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppStyle.mainColor,
+      backgroundColor: DarkMode.mainColor,
+      drawer: Drawer(
+        backgroundColor: Colors.black,
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            DrawerHeader(
+              decoration: const BoxDecoration(
+                color: Colors.amber,
+              ),
+              child: Center(
+                child: Text("Options",
+                    style: GoogleFonts.roboto(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black)),
+              ),
+            ),
+            ListTile(
+              leading: const Icon(
+                Icons.settings,
+                color: Colors.white,
+              ),
+              title: Text(
+                "Settings",
+                style: GoogleFonts.roboto(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const SettingsScreen(),
+                  ),
+                );
+              },
+            )
+          ],
+        ),
+      ),
       appBar: AppBar(
         backgroundColor: Colors.amber[600],
         title: const Center(
           child: Text(
             "Note Wise",
-            style: TextStyle(color: Colors.black,
+            style: TextStyle(
+              color: Colors.black,
               fontSize: 30,
               fontWeight: FontWeight.bold,
             ),
@@ -35,12 +78,15 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         actions: [
           IconButton(
-              onPressed: () {
-                Navigator.push(context,
-                    // ignore: non_constant_identifier_names
-                    MaterialPageRoute(builder: (Context) => const NoteEditorScreen()));
-              }, icon: const Icon(Icons.add, color: Colors.black),
-          iconSize: 30,)
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  // ignore: non_constant_identifier_names
+                  MaterialPageRoute(builder: (Context) => const NoteCreateScreen()));
+            },
+            icon: const Icon(Icons.add, color: Colors.black),
+            iconSize: 30,
+          )
         ],
       ),
       body: Padding(
@@ -99,12 +145,13 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: Colors.amber,
-        onPressed: ()  {
+        onPressed: () {
           showAlertDialog(context);
         },
         label: const Text(
           "Delete all",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.black),
+          style: TextStyle(
+              fontWeight: FontWeight.bold, fontSize: 20, color: Colors.black),
         ),
         icon: const Icon(
           Icons.delete_forever_rounded,

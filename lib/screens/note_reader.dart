@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:note_project/style/app_style.dart';
-import 'package:note_project/data/note_data.dart';
-import 'package:note_project/data/providers/firebase_provider.dart';
+import 'package:note_project/style/app_style_dark.dart';
+import 'package:note_project/screens/note_updater.dart';
+
+import '../data/note_data.dart';
 
 class NoteReaderScreen extends StatefulWidget {
   NoteReaderScreen(this.doc, {Key? key}) : super(key: key);
@@ -20,7 +21,7 @@ class _NoteReaderScreenState extends State<NoteReaderScreen> {
   @override
   Widget build(BuildContext context) {
     int color_id = widget.doc["color_id"];
-    // String date = DateTime.now().toString();
+    // // String date = DateTime.now().toString();
     // TextEditingController _titleController = TextEditingController();
     // TextEditingController _mainController = TextEditingController();
 
@@ -37,18 +38,33 @@ class _NoteReaderScreenState extends State<NoteReaderScreen> {
           }
 
           return Scaffold(
-            backgroundColor: AppStyle.cardsColor[color_id],
+            backgroundColor: DarkMode.cardsColor[color_id],
             appBar: AppBar(
                 title: const Text(
                   "Back",
                   style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                 ),
-                backgroundColor: AppStyle.cardsColor[color_id],
+                backgroundColor: DarkMode.cardsColor[color_id],
                 elevation: 0.0,
                 actions: [
                   IconButton(
                     icon: const Icon(Icons.edit),
-                    onPressed: () => {},
+                    onPressed: () => {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => NoteUpdateScreen(
+                            Note(
+                              content: widget.doc["note_content"],
+                              docId: widget.doc.id,
+                              title: widget.doc["note_title"],
+                            ),
+
+                          ),
+
+                        ),
+                      ),
+                    },
                   ),
                 ]),
             body: Padding(
@@ -59,7 +75,7 @@ class _NoteReaderScreenState extends State<NoteReaderScreen> {
                 children: [
                   Text(
                     widget.doc["note_title"],
-                    style: AppStyle.mainTitle,
+                    style: DarkMode.mainTitle,
                     maxLines: 1,
                   ),
                   const SizedBox(
@@ -67,12 +83,12 @@ class _NoteReaderScreenState extends State<NoteReaderScreen> {
                   ),
                   Text(
                     widget.doc["creation_date"],
-                    style: AppStyle.dateTitle,
+                    style: DarkMode.dateTitle,
                   ),
                   const SizedBox(height: 30),
                   Text(
                     widget.doc["note_content"],
-                    style: AppStyle.mainContent,
+                    style: DarkMode.mainContent,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -87,7 +103,7 @@ class _NoteReaderScreenState extends State<NoteReaderScreen> {
                     .doc(widget.doc.id)
                     .delete()
                     .whenComplete(() => {print("Note Deleted Successfully")});
-                    Navigator.pop(context);
+                Navigator.pop(context);
               },
               label: const Text(
                 "Delete",

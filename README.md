@@ -21,3 +21,4 @@ More functionalities to be added like: editing a note, adding a pic etc.
 
 
 ![image](https://user-images.githubusercontent.com/61822722/167269710-230fba67-8248-4ccf-be1d-d1e9619d0be4.png)
+
