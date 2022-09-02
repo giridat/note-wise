@@ -6,8 +6,8 @@ The app structure has been created following this video:
 
 ---- https://www.youtube.com/watch?v=fL8Ujzh5DQc&t=759s&ab_channel=doctorcode ----
 
-Additional functionalities have been added eg: Delete 
-More functionalities to be added like: editing a note, adding a pic etc.
+Additional functionalities have been added ex: 
+Delete a note, deleting all notes, updating a note, Drawer Header, About the app info, pop up alert while deleting a note
 
 ![Screenshot 2022-05-08 012048](https://user-images.githubusercontent.com/61822722/167269675-5d5c42e1-0bd1-44bf-8c0d-25b87168aff9.png)
 ![image](https://user-images.githubusercontent.com/61822722/188114942-2dc76a31-c3b2-4c21-8d13-b4d4c4dd2b00.png)
